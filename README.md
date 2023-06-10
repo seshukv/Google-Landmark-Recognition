@@ -1,5 +1,5 @@
 # Google Landmark Recognition Project
-The "Google Landmark Recognition Project" aims to identify the class that a given image belongs to. This project is based on the Kaggle competition named Google Landmark Recognition 2021. The objective of the competition is to develop an algorithm that can accurately recognize and classify landmarks from images.
+The "Google Landmark Recognition Project" aims to identify the class that a given image belongs to. This project is based on the Kaggle competition named Google Landmark Recognition 2021. The objective of the competition is to develop a CNN that can accurately recognize and classify landmarks from images.
 
 <h3>Installation Instructions</h3>
 To run this project locally:
