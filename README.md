@@ -1,39 +1,56 @@
-# Google Landmark Recognition Project
-The "Google Landmark Recognition Project" aims to identify the class that a given image belongs to. This project is based on the Kaggle competition named Google Landmark Recognition 2021. The objective of the competition is to develop a CNN that can accurately recognize and classify landmarks from images.
+# Google Landmark Recognition
 
-<h3>Installation Instructions</h3>
-To run this project locally:
-Clone the repository and Install the required dependencies
+## Overview
+Deep learning project for the Google Landmark Recognition 2021 Kaggle competition.
+Built and compared two CNN approaches to classify landmark images across 76,563 classes.
 
-<h3>Usage Guidelines</h3>
-To use this project, follow the guidelines below:
+## The Challenge
+- Massive dataset with extreme class imbalance
+- Some landmarks had 1000+ images, others had just 1-2
+- Required careful data preprocessing before any modeling
 
-Download the dataset from the Kaggle competition page and ensure it is properly organized.<br>
-Perform exploratory data analysis (EDA) to gain insights into the dataset's characteristics and distribution.<br>
-Address the class imbalance issue by undersampling the dataset and removing classes with fewer than 3 images to eliminate bias.<br>
-Apply class weights and implement image augmentation techniques to enhance the model's performance on the imbalanced dataset.<br>
-Utilize two different approaches for image classification:<br>
-Build a Convolutional Neural Network (CNN) model from scratch and train it using the image data.<br>
-Utilize a pre-trained model, such as ResNetv2, and fine-tune the model's layers at the end to suit the specific problem requirements.<br>
-Employ the ImageDatagenerator to preprocess and prepare the images for training and evaluation.
+## Approach
 
-<h3>Features</h3>
-Exploratory Data Analysis (EDA) to gain insights into the dataset<br>
-Addressing class imbalance through undersampling and removal of classes with few images<br>
-Class weighting and image augmentation techniques to enhance model performance<br>
-Custom CNN model training from scratch<br>
-Utilization of a pre-trained model (ResNetv2) with customized layers for transfer learning<br>
-Image preprocessing and preparation using ImageDatagenerator<br>
+### Data Preprocessing
+- Analyzed class distribution across 76,563 landmark categories
+- Undersampled classes with 30+ images to maximum 30 per class
+- Removed classes with fewer than 3 images to reduce noise
+- Applied class weights to handle remaining imbalance
 
-<h3>Technologies Used</h3>
-Python
+### Image Augmentation
+- Random horizontal flip
+- Random rotation (±30°)
+- Width and height shift
+- Zoom range
+- Shear transformation
 
-<h3>Contributing</h3>
-Contributions to this project are currently not open. However, feel free to fork the repository and work on your own version.
+### Model 1 — Custom CNN from Scratch
+- 3 Convolutional layers (16, 32, 64 filters)
+- MaxPooling after each conv layer
+- Dropout (0.1) for regularization
+- Dense layers (128, 256 units)
+- LeakyReLU activation throughout
+- Softmax output for 76,563 classes
 
-<h3>License</h3>
-The code in this project is available under the MIT License.
+### Model 2 — Transfer Learning with ResNet50V2
+- Loaded pretrained ResNet50V2 (trained on ImageNet)
+- Froze all pretrained layers
+- Added custom Dense layers (256, 512 units)
+- Fine tuned only the top layers
+- Significantly faster convergence than custom CNN
 
-<h3>Additional Information</h3>
-For more information about the competition and to obtain the required dataset, please refer to the Kaggle competition page. 
-(URL: https://www.kaggle.com/competitions/landmark-recognition-2021)
+## Key Learnings
+- Transfer learning dramatically outperforms training from scratch on image classification
+- Class imbalance handling is critical — without it model ignores rare classes
+- Image augmentation significantly improves generalization on limited data
+- ResNet50V2 pretrained on ImageNet transfers well even to landmark recognition
+
+## Technologies
+- Python, TensorFlow, Keras
+- ResNet50V2 (pretrained on ImageNet)
+- ImageDataGenerator for augmentation
+- scikit-learn for class weights
+
+## Dataset
+Kaggle — Google Landmark Recognition 2021
+https://www.kaggle.com/competitions/landmark-recognition-2021
